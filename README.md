@@ -1,17 +1,20 @@
-## Бригада ___no-name___
+# Бригада **raptors**
 
-1. Макарицький Олег
-2. Рудик Микола
+### Склад бригади:
 
+- [Макарицький Олег](https://github.com/olegmak02)
+- [Головенко Олександр](https://github.com/sashaholovenko)
+- [Рудик Микола](https://github.com/Destaby)
 
-### Lab1
+---
+### Вказівки до лабораторної роботи №1:
 
 - Билд образу
 ```
-docker build -t my_nginx -f ./Lab1/Dockerfile ./Lab1
+docker build -t raptors -f ./Lab1/Dockerfile ./Lab1
 ```
 
-- Ран контейнера
+- Запуск контейнера
 ```
-docker run -d -p 80:80 my_nginx
+docker run -d -p 80:80 raptors
 ```
