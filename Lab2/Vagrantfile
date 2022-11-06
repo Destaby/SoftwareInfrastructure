@@ -1,0 +1,24 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "nginx" do |nginx|
+    nginx.vm.box = "bytesguy/ubuntu-server-20.04-arm64"
+    nginx.vm.hostname = 'nginx'
+    nginx.vm.network "forwarded_port", guest: 80, host: 8080
+
+    nginx.vm.provider "vmware_desktop" do |v|
+      v.memory = "1024"
+      v.cpus = 2
+      # v.vmx["displayname"] = "raptors"
+      # v.gui = true
+    end
+
+    nginx.vm.synced_folder ".", "/vagrant", disabled: true
+    nginx.vm.synced_folder "./raptors", "/raptors"
+
+    nginx.vm.provision "shell", inline: <<-SHELL
+      sudo apt-get update -y
+      sudo apt-get install -y nginx
+      sudo cp /raptors/nginx.conf /etc/nginx
+      sudo systemctl restart nginx
+    SHELL
+  end
+end

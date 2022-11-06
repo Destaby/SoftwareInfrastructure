@@ -18,3 +18,18 @@ docker build -t raptors -f ./Lab1/Dockerfile ./Lab1
 ```
 docker run -d -p 80:80 raptors
 ```
+
+### Вказівки до лабораторної роботи №2:
+
+- Файл конфігурації vagrant знаходиться в папці "./Lab2"
+
+- Завантажити vmware_desktop плагін
+```
+vagrant plugin install vagrant-vmware-desktop
+```
+
+- Запуск віртуальної машини
+```
+cd ./Lab2
+vagrant up --provider vmware_desktop
+```
