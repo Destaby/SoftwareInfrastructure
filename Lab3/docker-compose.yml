@@ -16,7 +16,7 @@ services:
     container_name: postgres
     image: postgres
     environment: *postgres-variables
-    ports: 
+    ports:
       - '5432:5432'
     volumes:
       - ./server/src/database/postgresql/structure.sql:/docker-entrypoint-initdb.d/structure.sql

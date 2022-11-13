@@ -5,7 +5,7 @@ import { IModelOptions } from '@typegoose/typegoose/lib/types';
 import { getMongoConnectionOptions } from './helpers';
 
 export class MongooseConnection extends mongoose.Connection {
-  public static connect( _mongoose = mongoose) {
+  public static connect(_mongoose = mongoose) {
     const { uri } = getMongoConnectionOptions();
     // @ts-ignore - tsc claims that MongooseConnection requires 0 arguments, but it is not true
     const conn = new MongooseConnection(_mongoose);

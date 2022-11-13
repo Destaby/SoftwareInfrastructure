@@ -1,9 +1,9 @@
 import { Pool } from 'pg';
-import { POSTGRESQL_CONNSTRING, } from '../../config';
+import { POSTGRESQL_CONNSTRING } from '../../config';
 
 const OPERATORS = ['>=', '<=', '<>', '>', '<'];
 
-export type Props = {[k in string]: string }
+export type Props = { [k in string]: string };
 
 const where = (conditions: Props, firstArgIndex = 1) => {
   const clause = [];
@@ -100,6 +100,6 @@ export default class Database {
   }
 
   close() {
-    this.pool.end();
+    return this.pool.end();
   }
 }

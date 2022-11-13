@@ -6,13 +6,11 @@ import { CreateArgs, IStorage, IFilter } from './storage-interfaces';
 import { getQueryFromFilter } from './filter-helpers';
 import { PersistedSchema } from './schema-helpers';
 
-export class MongooseStorage<T extends PersistedSchema>
-  implements IStorage<T>
-{
+export class MongooseStorage<T extends PersistedSchema> implements IStorage<T> {
   constructor(
     protected connection: MongooseConnection,
     protected schema: Type<T>,
-    protected discriminators?: ReadonlyArray<Type<T>>,
+    protected discriminators?: ReadonlyArray<Type<T>>
   ) {
     const model = connection.getModel(schema);
     for (const discriminator of discriminators || []) {
@@ -63,22 +61,15 @@ export class MongooseStorage<T extends PersistedSchema>
     return Model;
   }
 
-  public async create<TSchema extends T>(
-    obj: CreateArgs<TSchema>
-  ): Promise<TSchema> {
+  public async create<TSchema extends T>(obj: CreateArgs<TSchema>): Promise<TSchema> {
     const Model = this.getModel<TSchema>();
     return Model.create({ ...obj, id: uuid.v4() });
   }
 
-  public async createMany<TSchema extends T>(
-    objArr: Array<CreateArgs<TSchema>>
-  ) {
+  public async createMany<TSchema extends T>(objArr: Array<CreateArgs<TSchema>>) {
     const Model = this.getModel<TSchema>();
 
-    await Model.updateMany()
-    for await (const obj of objArr) {
-      await this.create(obj)
-    }
+    await Model.create(objArr.map((obj) => ({ ...obj, id: uuid.v4() })));
   }
 
   public async updateById<TSchema extends T>(id: string, doc: Partial<TSchema>) {
@@ -90,7 +81,7 @@ export class MongooseStorage<T extends PersistedSchema>
 
     await Model.findByIdAndUpdate(id, updateQuery as any);
   }
-  
+
   public async deleteOne<TSchema extends T>(filter: IFilter<TSchema>) {
     const Model = this.getModel<TSchema>();
     await Model.findOneAndDelete(getQueryFromFilter(filter));

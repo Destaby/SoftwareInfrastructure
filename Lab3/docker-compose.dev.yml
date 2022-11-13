@@ -12,7 +12,7 @@ services:
       - POSTGRES_USER=raptor
       - POSTGRES_PASSWORD=infrastructureCourse
       - POSTGRES_DB=raptors
-    ports: 
+    ports:
       - '5432:5432'
     volumes:
       - ./server/src/database/postgresql/structure.sql:/docker-entrypoint-initdb.d/structure.sql

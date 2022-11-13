@@ -8,4 +8,4 @@ const POSTGRES_DB = process.env.POSTGRES_DB || 'raptors';
 const POSTGRES_USER = process.env.POSTGRES_USER || 'raptor';
 const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || 'infrastructureCourse';
 
-export const POSTGRESQL_CONNSTRING = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}`
+export const POSTGRESQL_CONNSTRING = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}`;

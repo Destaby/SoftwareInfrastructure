@@ -12,14 +12,10 @@ export default class Table {
   }
 
   delete(conditions: Props) {
-    return this.database.delete(this.table, conditions)
+    return this.database.delete(this.table, conditions);
   }
 
   update(delta: Props, conditions: Props) {
-    return this.database.update(this.table, delta, conditions)
-  }
-
-  close() {
-    this.database.close();
+    return this.database.update(this.table, delta, conditions);
   }
 }

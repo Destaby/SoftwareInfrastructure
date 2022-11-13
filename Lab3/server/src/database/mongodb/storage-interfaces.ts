@@ -1,4 +1,4 @@
-import { OmitMethods, WritableKeys } from "../../types/tools";
+import { OmitMethods, WritableKeys } from '../../types/tools';
 
 export type Nullable<T> = { [P in keyof T]: T[P] | null };
 
@@ -26,12 +26,8 @@ export interface IStorage<T> {
     sortBy?: { [key: string]: 1 | -1 }
   ): Promise<TSchema | undefined>;
   updateById<TSchema extends T>(id: string, doc: Partial<TSchema>): Promise<void>;
-  create<TSchema extends T>(
-    entity: CreateArgs<TSchema>
-  ): Promise<TSchema>;
-  createMany<TSchema extends T>(
-    entities: Array<CreateArgs<TSchema>>
-  ): Promise<void>;
+  create<TSchema extends T>(entity: CreateArgs<TSchema>): Promise<TSchema>;
+  createMany<TSchema extends T>(entities: Array<CreateArgs<TSchema>>): Promise<void>;
   deleteOne<TSchema extends T>(filter: IFilter<TSchema>): Promise<void>;
   deleteMany<TSchema extends T>(filter: IFilter<TSchema>): Promise<void>;
 }

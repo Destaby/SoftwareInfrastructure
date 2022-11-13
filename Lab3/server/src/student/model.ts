@@ -1,5 +1,5 @@
-import { prop } from "@typegoose/typegoose";
-import { PersistedSchema } from "../database/mongodb/schema-helpers";
+import { prop } from '@typegoose/typegoose';
+import { PersistedSchema } from '../database/mongodb/schema-helpers';
 
 export class Student extends PersistedSchema {
   @prop({ required: true })

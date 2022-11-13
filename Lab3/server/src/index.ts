@@ -16,11 +16,11 @@ const main = async () => {
   const studentsStorage = getStudentsStorage(mongooseConnection);
 
   const studentService = new StudentService({
-    studentsStorage
-  })
+    studentsStorage,
+  });
   const groupService = new GroupService({
     database: postgresqlDatabase,
-  })
+  });
 
   const students = getStudents({ studentService });
   const groups = getGroups({ groupService });
@@ -31,8 +31,8 @@ const main = async () => {
 
   app.use(express.static(STATIC_PATH));
 
-  app.use('/students', students)
-  app.use('/groups', groups)
+  app.use('/students', students);
+  app.use('/groups', groups);
 
   app.listen(PORT, () => {
     console.log(`Running on http://127.0.0.1:${PORT}`);
@@ -40,12 +40,16 @@ const main = async () => {
 
   const shutdown = async (err: any) => {
     await mongooseConnection.close();
-    postgresqlDatabase.close();
-    console.log(err)
-  }
+    await postgresqlDatabase.close();
+    console.log(err);
+  };
 
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   process.on('uncaughtException', shutdown);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   process.on('unhandledRejection', shutdown);
-}
+};
 
-main()
+main().catch((err) => {
+  console.log(err);
+});

@@ -3,14 +3,17 @@ import * as uuid from 'uuid';
 import { omit } from 'lodash';
 import { StudentsStorage } from '../student/storage.js';
 
-export default async ({ studentsStorage, postgresqlDatabase }: {
-  studentsStorage: StudentsStorage,
-  postgresqlDatabase: Database,
+export default async ({
+  studentsStorage,
+  postgresqlDatabase,
+}: {
+  studentsStorage: StudentsStorage;
+  postgresqlDatabase: Database;
 }) => {
   const group = {
     id: uuid.v4(),
     name: 'IP-94',
-  }
+  };
 
   const student = {
     id: uuid.v4(),
@@ -22,10 +25,7 @@ export default async ({ studentsStorage, postgresqlDatabase }: {
   await Promise.all([
     studentsStorage.deleteMany(omit(student, 'id')),
     postgresqlDatabase.delete('groups', { name: group.name }),
-  ])
+  ]);
 
-  await Promise.all([
-    studentsStorage.create(student),
-    postgresqlDatabase.insert('groups', group)
-  ])
+  await Promise.all([studentsStorage.create(student), postgresqlDatabase.insert('groups', group)]);
 };

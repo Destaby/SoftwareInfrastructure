@@ -1,4 +1,4 @@
-import { StudentsStorage } from "./storage";
+import { StudentsStorage } from './storage';
 
 interface StudentServiceParams {
   studentsStorage: StudentsStorage;
@@ -7,9 +7,7 @@ interface StudentServiceParams {
 export class StudentService {
   public storage: StudentsStorage;
 
-  public constructor({
-    studentsStorage
-  }: StudentServiceParams) {
+  public constructor({ studentsStorage }: StudentServiceParams) {
     this.storage = studentsStorage;
   }
-};
+}

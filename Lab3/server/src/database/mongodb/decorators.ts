@@ -1,4 +1,4 @@
-import { Type } from "../../types/tools";
+import { Type } from '../../types/tools';
 
 export const schemaSymbol = Symbol('schema');
 export const schemaCtorIndexSymbol = Symbol('schema');
@@ -8,17 +8,13 @@ type Props<TSchema> = {
   [schemaSymbol]?: Type<TSchema>;
   [schemaCtorIndexSymbol]?: number;
   [discriminatorsSymbol]?: ReadonlyArray<Type<TSchema>>;
-}
+};
 
 export function storage<TSchema>(
   schema: Type<TSchema>,
-  discriminators?: ReadonlyArray<Type<TSchema>>,
+  discriminators?: ReadonlyArray<Type<TSchema>>
 ) {
-  return <K extends string, T extends Props<TSchema>>(
-    target: T,
-    _: K,
-    index: number
-  ) => {
+  return <K extends string, T extends Props<TSchema>>(target: T, _: K, index: number) => {
     if (target[schemaSymbol]) {
       throw new Error('Cannot define multiple storages on a single writer');
     }
