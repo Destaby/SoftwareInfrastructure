@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mongodb:
+    image: mongo:4.4.4
+    ports:
+      - '27017:27017'
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=raptor
+      - POSTGRES_PASSWORD=infrastructureCourse
+      - POSTGRES_DB=raptors
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ./server/src/database/postgresql/structure.sql:/docker-entrypoint-initdb.d/structure.sql

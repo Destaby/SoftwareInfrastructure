@@ -33,3 +33,20 @@ vagrant plugin install vagrant-vmware-desktop
 cd ./Lab2
 vagrant up --provider vmware_desktop
 ```
+
+### Вказівки до лабораторної роботи №3:
+
+- Билд образу
+```
+docker build -t raptors:Lab3 --no-cache -f ./Lab3/Dockerfile ./Lab3
+```
+
+- Запуск контейнерів
+```
+cd Lab3 && yarn all-up
+```
+
+- Запуск локально
+```
+cd Lab3 && yarn all-start
+```

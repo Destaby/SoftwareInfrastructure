@@ -1,0 +1,39 @@
+version: '3.8'
+
+x-postgres-variables: &postgres-variables
+  POSTGRES_USER: raptor
+  POSTGRES_PASSWORD: infrastructureCourse
+  POSTGRES_DB: raptors
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:4.4.4
+    ports:
+      - '27017:27017'
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment: *postgres-variables
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ./server/src/database/postgresql/structure.sql:/docker-entrypoint-initdb.d/structure.sql
+
+  main:
+    container_name: raptors
+    build:
+      context: ''
+      dockerfile: Dockerfile
+    command: sh -c 'yarn build-start'
+    image: raptors:Lab3
+    environment:
+      <<: *postgres-variables
+      MONGODB_HOST: mongodb:27017
+      POSTGRES_HOST: postgres:5432
+    depends_on:
+      - mongodb
+      - postgres
+    ports:
+      - '8080:8080'
