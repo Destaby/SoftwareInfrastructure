@@ -11,7 +11,7 @@ export default ({ studentService }: { studentService: StudentService }) => {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   app.get('/', async (req, res) => {
     const groups : string[] | undefined = <string[]>req.query.groups;
-    let students; //: Student[];
+    let students;
     if (groups === undefined) {
       students = await studentService.storage.find();
     } else {
