@@ -21,4 +21,13 @@ export class StudentService {
       await this.storage.create(student);
     }
   }
+  
+  public async find(groups: string[]) {
+    let students : Student[] = [];
+    for (let group of groups) {
+      let foundStudents = await this.storage.find({group});
+      students = students.concat(foundStudents);
+    }
+    return students;
+  }
 }

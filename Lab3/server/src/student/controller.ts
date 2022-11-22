@@ -1,21 +1,21 @@
 import * as express from 'express';
 import { StudentService } from './service';
+import { Student } from './model';
 
 const app = express();
 
 export default ({ studentService }: { studentService: StudentService }) => {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+
   app.use(express.json());
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   app.get('/', async (req, res) => {
-    const group = req.query.group;
-    console.log(group);
-    let students;
-    if (group === undefined) {
+    const groups : string[] | undefined = <string[]>req.query.groups;
+    let students : Student[];
+    if (groups === undefined) {
       students = await studentService.storage.find();
     } else {
-      students = await studentService.storage.find({ group });
+      students = await studentService.find(groups);
     }
     res.json(students).end();
   });

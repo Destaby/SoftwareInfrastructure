@@ -4,7 +4,7 @@ import { GroupService } from './service';
 const app = express();
 
 export default ({ groupService }: { groupService: GroupService }) => {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+
   app.use(express.json());
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
