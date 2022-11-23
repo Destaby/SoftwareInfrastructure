@@ -1,0 +1,17 @@
+.student-item {
+  height: 40px;
+  border: 1px black solid;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+  border-collapse: collapse;
+}
+
+.buttons {
+  margin-right: 20px;
+}
+
+.student-info {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,6 @@
+.student-list {
+  position: relative;
+  max-width: 1200px;
+  border: 1px black solid;
+  border-radius: 5px;
+}
