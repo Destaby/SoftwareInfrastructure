@@ -13,14 +13,14 @@ const StudentList = () => {
   const [dbGroupsChanged, setGroupsChanged] = useState(false)
   const [addStudentActive, setAddStudentActive] = useState(false)
   const [groupList, setGroupList] = useState([])
-  const [groups, setGroups] = useState('')
-  const [groupAcrive, setGroupActive] = useState(false)
+  const [groupActive, setGroupActive] = useState(false)
+  const [currentGroup, setCurrentGroup] = useState('')
   const [groupModalActive, setGroupModalActive] = useState(false)
 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/groups').then((res) => {
-      res.data.sort((a, b) => {
+    axios.get('/groups').then((res) => {
+      const groups = res.data.sort((a, b) => {
         const nameA = a.name.toUpperCase(); // ignore upper and lowercase
         const nameB = b.name.toUpperCase(); // ignore upper and lowercase
         if (nameA < nameB) {
@@ -29,45 +29,67 @@ const StudentList = () => {
         if (nameA > nameB) {
           return 1;
         }
-      })
-      setGroupList(res.data)
+      });
+      setGroupList(groups)
+      setCurrentGroup(groups[0].name)
+      setGroupActive(true)
     })
   }, [dbGroupsChanged])
 
   useEffect(() => {
-    axios.get("http://localhost:8080/students").then((res) => {
+    axios.get("/students").then((res) => {
       setStudents(res.data)
     }
     )
 
-  }, [dbChanged])
+  }, [dbChanged, groupList])
 
   const handleSelect = (e) => {
-    setGroups(e.target.value)
+    setCurrentGroup(e.target.value)
     setGroupActive(true)
   }
 
+  const studentsByGroup = studentsList.filter(el => el.group === currentGroup)
 
-  const studentsByGroup = studentsList.filter(el => el.group === groups)
+  const buttons = <><button style={{
+    position: "relative",
+    left: 10,
+    marginTop: 50,
+    marginBottom: 10,
+    backgroundColor: "greenyellow"
+  }}
+          onClick={() => setAddStudentActive(true)}
+  >ADD STUDENT</button>
+  <button
+    style={{
+      position: "relative",
+      marginLeft: 20,
+      marginTop: 50,
+      marginBottom: 10,
+      backgroundColor: "cornflowerblue"
+    }}
+    onClick={() => setGroupModalActive(true)}
+  >MANAGE GROUPS</button></>
 
   return (
 
     <div className="student-list">
-      {groupAcrive !== true
+      {groupActive !== true
         ?
-        <div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
+        <><div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
           <h2>Please, select group</h2>
           <br/>
         <select style={{width: 100, height: 60, fontSize: 20}}
-          value={groups} onChange={(e) => handleSelect(e)}>
+          value={currentGroup} onChange={(e) => handleSelect(e)}>
           {groupList.map(elem => <option key={elem.id} value={elem.name}>{elem.name}</option>)}
         </select>
         </div>
+        <div>{buttons}</div></>
       : <div>
-          <select value={groups} onChange={(e) => handleSelect(e)}>
+          <select value={currentGroup} onChange={(e) => handleSelect(e)}>
             {groupList.map(elem => <option key={elem.id} value={elem.name}>{elem.name}</option>)}
           </select>
-          <h2>Student from {groups}</h2>
+          <h2>Student from {currentGroup}</h2>
           {(studentsByGroup.length !== 0) ? studentsByGroup.map((el) => {
             return (
               <StudentItem key={el._id}
@@ -82,25 +104,7 @@ const StudentList = () => {
             )
           }) : <div>Sorry, can't found students</div>
           }
-          <button style={{
-            position: "relative",
-            left: 10,
-            marginTop: 50,
-            marginBottom: 10,
-            backgroundColor: "greenyellow"
-          }}
-                  onClick={() => setAddStudentActive(true)}
-          >ADD STUDENT</button>
-          <button
-            style={{
-              position: "relative",
-              marginLeft: 20,
-              marginTop: 50,
-              marginBottom: 10,
-              backgroundColor: "cornflowerblue"
-            }}
-            onClick={() => setGroupModalActive(true)}
-          >MANAGE GROUPS</button>
+          {buttons}
         </div>
       }
 

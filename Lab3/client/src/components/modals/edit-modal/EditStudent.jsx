@@ -17,7 +17,7 @@ const EditStudent = ({name, surname, group, active, setActive, dbChanged, setDbC
   const handleSubmit = (e) => {
     e.preventDefault()
     // NO SUCH FUNCTIONAL ON SERVER
-    // axios.patch('http://localhost:8080/students', {data: {nameToEdit, surnameToEdit, groupToEdit}}).finally(() => {
+    // axios.patch('/students', {data: {nameToEdit, surnameToEdit, groupToEdit}}).finally(() => {
     //   setDbChanged(!dbChanged)
     // })
     console.log(`User ${name} ${surname} from ${group} was successfully updated to -- ${nameToEdit} ${surnameToEdit} from ${groupToEdit}`)

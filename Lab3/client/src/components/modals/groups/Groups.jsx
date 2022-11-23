@@ -6,7 +6,7 @@ const Groups = ({active, setActive, groups, dbChanged, setDbChanged}) => {
   const [newGroup, setNewGroup] = useState('')
 
   const clickHandler = async (group) => {
-    await axios.delete('http://localhost:8080/groups', {data: {name: "IP-99"}})
+    await axios.delete(`/groups/:${group.id}`)
     setDbChanged(!dbChanged)
     console.log(`Group ${group.name} was successfully deleted`)
   }
@@ -15,7 +15,7 @@ const Groups = ({active, setActive, groups, dbChanged, setDbChanged}) => {
     e.preventDefault()
     const newGroupObj = {name: newGroup}
     console.log(newGroupObj)
-    await axios.post('http://localhost:8080/groups', newGroupObj)
+    await axios.post('/groups', newGroupObj)
     setNewGroup('')
     setDbChanged(!dbChanged)
   }

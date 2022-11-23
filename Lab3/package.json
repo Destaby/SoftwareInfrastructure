@@ -10,7 +10,8 @@
         "rebuild": "yarn clean && yarn build",
         "lint": "eslint --ext .js,.ts,.jsx,.tsx ./server/src",
         "lint:fix": "yarn lint --fix && prettier --write \"**/*.{json,yaml,yml}\"",
-        "build-start": "yarn build && yarn start",
+        "build-start": "yarn build && cd client && yarn build && cd .. && yarn build && yarn start",
+        "react:install": "cd client && yarn install",
         "all-start": "yarn prepare-docker && yarn build && yarn start",
         "prepare-docker": "docker-compose -f docker-compose.dev.yml up -d",
         "all-up": "docker-compose up",
@@ -21,7 +22,6 @@
     },
     "dependencies": {
         "@typegoose/typegoose": "^9.12.1",
-        "cors": "^2.8.5",
         "express": "^4.18.2",
         "lodash": "^4.17.21",
         "mongoose": "^6.7.2",

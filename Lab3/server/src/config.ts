@@ -1,5 +1,5 @@
 export const PORT = process.env.PORT || 8080;
-export const STATIC_PATH = './client/views';
+export const STATIC_PATH = process.env.STATIC_PATH || './client/build';
 
 export const MONGODB_HOST = process.env.MONGODB_HOST || '127.0.0.1:27017';
 

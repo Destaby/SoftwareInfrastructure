@@ -22,9 +22,10 @@ export default ({ groupService }: { groupService: GroupService }) => {
   });
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  app.delete('/', async (req, res) => {
-    const group = req.body;
-    await groupService.table.delete(group);
+  app.delete('/:id', async (req, res) => {
+    const groupId = req.params.id;
+    console.log({ groupId })
+    await groupService.table.delete({ id: groupId.slice(1) });
     const groups = await groupService.table.select();
     res.json(groups).end();
   });

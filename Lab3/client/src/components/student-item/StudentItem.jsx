@@ -10,7 +10,7 @@ const StudentItem = ({name, group, surname,dbChanged, setDbChanged}) => {
 
   let deleteStudent = () => {
     console.log(`User "${name} ${surname} from ${group}" was successfully deleted`)
-    axios.delete('http://localhost:8080/students', {data: {name, surname, group}}).finally(() => {
+    axios.delete('/students', {data: {name, surname, group}}).finally(() => {
       setDbChanged(!dbChanged)
     })
   }

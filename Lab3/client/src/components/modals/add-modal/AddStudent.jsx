@@ -10,7 +10,7 @@ const AddStudent = ({active, setActive, dbChanged, setDbChanged}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:8080/students', {
+    axios.post('/students', {
       name,
       surname,
       group
