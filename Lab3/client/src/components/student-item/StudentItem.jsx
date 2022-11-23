@@ -30,6 +30,8 @@ const StudentItem = ({name, group, surname,dbChanged, setDbChanged}) => {
                    name={name}
                    surname={surname}
                    group={group}
+                   dbChanged={dbChanged}
+                   setDbChanged={setDbChanged}
       />
     </div>
   );
