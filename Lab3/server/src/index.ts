@@ -28,9 +28,13 @@ const main = async () => {
   await initDemoData({ studentsStorage, postgresqlDatabase });
 
   const app = express();
+  const cors = require('cors')
 
   app.use(express.static(STATIC_PATH));
 
+  app.use(cors({
+    origin: true
+  }))
   app.use('/students', students);
   app.use('/groups', groups);
 
